@@ -32,3 +32,5 @@ if (alreadyExist === null){
     paintOrderSay(alreadyExist);
     link_next.classList.remove(HIDDEN);
 }
+
+console.log("hello");
