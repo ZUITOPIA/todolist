@@ -2,10 +2,10 @@ const todoForm = document.querySelector("#enterTodo");
 const todoInput = document.querySelector("#enterTodo input");
 const todoList = document.querySelector("#todolist");
 
-const todoSet = [];
+let todoSet = []; // 입력받은 newTodo 배열'처럼' 받기
 
 function savedTodoArray(){
-    localStorage.setItem("todoSet", todoSet);
+    localStorage.setItem("todoSet", JSON.stringify(todoSet));
 }
 
 function removeTodo(){
@@ -36,6 +36,7 @@ function showTodo(newTodo){
 }
 
 
+
 function handleTodo(event){
     event.preventDefault();
     const newTodo = todoInput.value;
@@ -48,11 +49,11 @@ function handleTodo(event){
 
 todoForm.addEventListener("submit", handleTodo);
 
-function showAreadyExist() // 반응 없는 함수, 수정 필요
-{
-    if(removeList == null){
-        localStorage.getItem("todoSet");
-    }else{
-        removeTodo();
-    }
+
+const savedToDos = localStorage.getItem("todoSet");
+
+if (savedToDos !== null) {
+  const parsedToDos = JSON.parse(savedToDos); 
+  todoSet = parsedToDos;
+  parsedToDos.forEach(showTodo);
 }
